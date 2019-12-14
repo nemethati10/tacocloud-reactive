@@ -1,7 +1,6 @@
-package tacos.web.api;
+package tacos;
 
 
-import javafx.application.Application;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import java.io.IOException;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = Application.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = TacoCloudApplication.class)
 @AutoConfigureWebTestClient
 public class DesignTacoIntegrationTest {
 
@@ -22,9 +21,9 @@ public class DesignTacoIntegrationTest {
     private WebTestClient testClient;
 
 
-    // TODO: fix integration test
     @Test
-    public void shouldReturnRecentTacos2() throws IOException {
+    public void shouldReturnRecentTacos() throws IOException {
+
         testClient.get().uri("/design/recent")
                 .accept(MediaType.APPLICATION_JSON).exchange()
                 .expectStatus().isOk()

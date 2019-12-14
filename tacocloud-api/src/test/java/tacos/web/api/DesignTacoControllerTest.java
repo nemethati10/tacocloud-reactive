@@ -30,6 +30,7 @@ public class DesignTacoControllerTest {
                 testTaco(11L), testTaco(12L),
                 testTaco(13L), testTaco(14L),
                 testTaco(15L), testTaco(16L)};
+
         Flux<Taco> tacoFlux = Flux.just(tacos);
 
         TacoRepository tacoRepo = Mockito.mock(TacoRepository.class);
@@ -56,16 +57,14 @@ public class DesignTacoControllerTest {
 
     @Test
     public void shouldSaveATaco() {
-        TacoRepository tacoRepo = Mockito.mock(
-                TacoRepository.class);
+        TacoRepository tacoRepo = Mockito.mock(TacoRepository.class);
         Mono<Taco> unsavedTacoMono = Mono.just(testTaco(null));
         Taco savedTaco = testTaco(null);
         Mono<Taco> savedTacoMono = Mono.just(savedTaco);
 
         when(tacoRepo.save(any())).thenReturn(savedTacoMono);
 
-        WebTestClient testClient = WebTestClient.bindToController(
-                new DesignTacoController(tacoRepo)).build();
+        WebTestClient testClient = WebTestClient.bindToController(new DesignTacoController(tacoRepo)).build();
 
         testClient.post()
                 .uri("/design")
@@ -83,11 +82,10 @@ public class DesignTacoControllerTest {
         taco.setId(number != null ? number.toString() : "TESTID");
         taco.setName("Taco " + number);
         List<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(
-                new Ingredient("INGA", "Ingredient A", Type.WRAP));
-        ingredients.add(
-                new Ingredient("INGB", "Ingredient B", Type.PROTEIN));
+        ingredients.add(new Ingredient("INGA", "Ingredient A", Type.WRAP));
+        ingredients.add(new Ingredient("INGB", "Ingredient B", Type.PROTEIN));
         taco.setIngredients(ingredients);
+
         return taco;
     }
 
